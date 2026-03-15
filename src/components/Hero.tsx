@@ -42,8 +42,8 @@ export const Hero = () => {
         <img src={viteLogo} className="vite" alt="Vite logo" />
       </div>
       <TextContainer>
-        <h1 ref={nameRef}></h1>
-        <p ref={descriptionRef}></p>
+        <h1 ref={nameRef}> </h1>
+        <p ref={descriptionRef}>Nice to meet you!</p>
       </TextContainer>
     </Container>
   );
