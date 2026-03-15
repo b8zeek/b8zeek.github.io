@@ -1,104 +1,51 @@
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import heroImg from "./assets/hero.png";
 import { Text } from "./components/Text";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
+import styled from "styled-components";
 
 import "./App.css";
 import { Scene } from "./components/Scene";
+import { Hero } from "./components/Hero";
+import { Connect } from "./components/Connect";
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
 function App() {
-  const appRef = useRef<HTMLDivElement>(null);
-  const centerRef = useRef<HTMLDivElement>(null);
   const nextStepsRef = useRef<HTMLDivElement>(null);
   const nextSteps2Ref = useRef<HTMLDivElement>(null);
   const nextSteps3Ref = useRef<HTMLDivElement>(null);
   const nextSteps4Ref = useRef<HTMLDivElement>(null);
-  const scrambleTextRef = useRef<HTMLHeadingElement>(null);
-  const scrambleText2Ref = useRef<HTMLParagraphElement>(null);
 
-  useGSAP(
-    () => {
-      const heroTimeline = gsap.timeline();
+  const connectRef = useRef<HTMLDivElement>(null);
 
-      const scrollTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: nextStepsRef.current,
-          scrub: 1,
-          start: "top bottom", // element appears when its top hits viewport bottom
-          end: "center center", // animation ends when element center hits viewport center
-          markers: true,
-        },
-      });
+  useGSAP(() => {
+    const scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        scrub: 1,
+        start: "top bottom",
+        end: "center center",
+      },
+    });
 
-      heroTimeline
-        .to(scrambleTextRef.current, {
-          duration: 1,
-          scrambleText: {
-            text: "Hello, I'm Mirko",
-            chars: "upperAndLowerCase",
-          },
-        })
-        .to(scrambleText2Ref.current, {
-          duration: 2,
-          scrambleText: {
-            text: "I'm a software engineer with a passion for building web applications.",
-            chars: "upperAndLowerCase",
-            rightToLeft: true,
-          },
-        });
-
-      scrollTimeline.from(nextStepsRef.current, {
-        x: 200,
-        scrollTrigger: {
-          trigger: nextStepsRef.current,
-          scrub: 1,
-          start: "top bottom",
-          end: "top center",
-          markers: true,
-        },
-      });
-
-      scrollTimeline.from(nextSteps2Ref.current, {
-        x: -200,
-        scrollTrigger: {
-          trigger: nextSteps2Ref.current,
-          scrub: 1,
-          start: "top bottom",
-          end: "top center",
-          markers: true,
-        },
-      });
-    },
-    { scope: appRef },
-  );
+    scrollTimeline.from(nextSteps2Ref.current, {
+      x: -200,
+      scrollTrigger: {
+        trigger: nextSteps2Ref.current,
+        scrub: 1,
+        start: "top bottom",
+        end: "top center",
+      },
+    });
+  });
 
   return (
-    <div
-      className="app"
-      style={{
-        paddingBottom: 1000,
-      }}
-      ref={appRef}
-    >
-      <section id="center" ref={centerRef}>
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1 ref={scrambleTextRef} />
-          <p ref={scrambleText2Ref} />
-        </div>
-      </section>
+    <Container>
+      <Hero />
+      <Connect connectRef={connectRef} />
 
       <div className="ticks"></div>
 
@@ -123,63 +70,7 @@ function App() {
             professionally.
           </Text>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with me</h2>
-          <p>Let's connect and collaborate</p>
-          <ul>
-            <li>
-              <a href="https://github.com/b8zeek" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/bejzik8" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/mirkobasic" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#linkedin-icon"></use>
-                </svg>
-                LinkedIn
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-          </ul>
-        </div>
+        <div id="social"></div>
       </section>
 
       <section id="next-steps" ref={nextSteps2Ref}>
@@ -423,11 +314,13 @@ function App() {
           </ul>
         </div>
       </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  background-color: var(--border);
+  padding: 1px;
+`;
 
 export default App;
