@@ -62,4 +62,8 @@ const Container = styled.section`
   background-color: white;
 `;
 
-const TextContainer = styled.div``;
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
