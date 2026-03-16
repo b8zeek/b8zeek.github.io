@@ -54,7 +54,7 @@ function App() {
           <svg className="icon" role="presentation" aria-hidden="true">
             <use href="/icons.svg#documentation-icon"></use>
           </svg>
-          <h2>About me</h2>
+          <h2>About me text</h2>
           <Text>
             Software Engineer with extensive experience designing scalable
             systems and leading strategy in both startup and enterprise
